@@ -2,52 +2,212 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AffichIA</title>
     >
+    //fonts.googleapis.com">
+    //fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>🎨 AffichIA</h1>
-        <p class="subtitle">Générateur d'affiches pour événements étudiants</p>
 
-        <div class="form-group">
-            abel>Mots-clés de l'événement :</label>
-            <input type="text" id="keywords" placeholder="Ex: soirée rétro, tournoi gaming...">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-brand">🎨 AffichIA</div>
+        <div class="nav-links">
+            <a href="#generator">Générateur</a>
+            <a href="#history">Historique</a>
+            <button class="btn-nav" id="authBtn">Connexion</button>
+            <span id="userDisplay" class="user-display hidden"></span>
+            <button class="btn-nav btn-logout hidden" id="logoutBtn">Déconnexion</button>
         </div>
+    </nav>
 
-        <div class="form-group">
-            abel>Type d'événement :</label>
-            <select id="style">
-                <option value="soiree">Soirée</option>
-                <option value="conference">Conférence</option>
-                <option value="tournoi">Tournoi</option>
-                <option value="atelier">Atelier</option>
-            </select>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge">✨ Propulsé par l'IA</span>
+            <h1>Crée ton affiche<br><span class="gradient-text">en quelques secondes</span></h1>
+            <p>Génère des affiches professionnelles pour tes événements étudiants grâce à l'intelligence artificielle.</p>
+            <a href="#generator" class="btn-hero">Commencer gratuitement →</a>
         </div>
-
-        <div class="form-group">
-            abel>Template :</label>
-            <div class="template-selector">
-                <div class="template-option selected" data-template="1">Style 1</div>
-                <div class="template-option" data-template="2">Style 2</div>
-                <div class="template-option" data-template="3">Style 3</div>
+        <div class="hero-visual">
+            <div class="poster-demo">
+                <div class="demo-title">SOIRÉE RÉTRO</div>
+                <div class="demo-slogan">La nuit qui va tout changer</div>
+                <div class="demo-colors">
+                    <div style="background:#FF4B5C"></div>
+                    <div style="background:#1E1E24"></div>
+                    <div style="background:#F9F9F9"></div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <button id="generateBtn" class="btn">Générer une affiche</button>
-
-        <!-- Prévisualisation de l'affiche -->
-        <div id="posterPreview" class="poster-preview hidden">
-            <div id="poster" class="poster template-1">
-                <div class="poster-title" id="posterTitle"></div>
-                <div class="poster-slogan" id="posterSlogan"></div>
-                <div class="poster-palette" id="posterPalette"></div>
+    <!-- MODAL AUTH -->
+    <div class="modal-overlay hidden" id="authModal">
+        <div class="modal">
+            <button class="modal-close" id="closeModal">✕</button>
+            <div class="modal-tabs">
+                <button class="tab-btn active" data-tab="login">Connexion</button>
+                <button class="tab-btn" data-tab="register">Inscription</button>
             </div>
-            <button id="downloadBtn" class="btn btn-download">⬇️ Télécharger en PDF</button>
+            <div id="loginForm" class="tab-content active">
+                <h2>Bon retour !</h2>
+                <input type="email" id="loginEmail" placeholder="Email">
+                <input type="password" id="loginPassword" placeholder="Mot de passe">
+                <button class="btn-primary" id="loginBtn">Se connecter</button>
+                <p class="auth-error" id="loginError"></p>
+            </div>
+            <div id="registerForm" class="tab-content hidden">
+                <h2>Créer un compte</h2>
+                <input type="text" id="regUsername" placeholder="Nom d'utilisateur">
+                <input type="email" id="regEmail" placeholder="Email">
+                <input type="password" id="regPassword" placeholder="Mot de passe (min. 6 caractères)">
+                <button class="btn-primary" id="registerBtn">S'inscrire</button>
+                <p class="auth-error" id="registerError"></p>
+            </div>
         </div>
     </div>
+
+    <!-- GÉNÉRATEUR -->
+    <section class="generator" id="generator">
+        <div class="generator-left">
+            <h2>Génère ton affiche</h2>
+            <p class="section-subtitle">Remplis les informations de ton événement</p>
+
+            <div class="form-grid">
+                <div class="form-group full">
+                    abel>Mots-clés *</label>
+                    <input type="text" id="keywords" placeholder="Ex: soirée rétro, gaming, conférence tech...">
+                </div>
+
+                <div class="form-group">
+                    abel>Type d'événement *</label>
+                    <select id="style">
+                        <option value="soiree">🎉 Soirée</option>
+                        <option value="conference">🎤 Conférence</option>
+                        <option value="tournoi">🏆 Tournoi</option>
+                        <option value="atelier">🛠️ Atelier</option>
+                        <option value="festival">🎵 Festival</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    abel>Organisateur</label>
+                    <input type="text" id="organisateur" placeholder="Ex: BDE Lyon 2">
+                </div>
+
+                <div class="form-group">
+                    abel>Date de l'événement</label>
+                    <input type="date" id="dateEvent">
+                </div>
+
+                <div class="form-group">
+                    abel>Lieu</label>
+                    <input type="text" id="lieu" placeholder="Ex: Salle des fêtes, Lyon">
+                </div>
+            </div>
+
+            <!-- TEMPLATE SELECTOR -->
+            <div class="template-section">
+                abel>Choisir un template</label>
+                <div class="template-grid">
+                    <div class="template-card selected" data-template="1">
+                        <div class="template-thumb t1"></div>
+                        <span>Soirée</span>
+                    </div>
+                    <div class="template-card" data-template="2">
+                        <div class="template-thumb t2"></div>
+                        <span>Pro</span>
+                    </div>
+                    <div class="template-card" data-template="3">
+                        <div class="template-thumb t3"></div>
+                        <span>Dynamique</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COULEURS MANUELLES -->
+            <div class="color-section">
+                abel>Personnaliser les couleurs</label>
+                <div class="color-pickers">
+                    <div class="color-picker-group">
+                        abel>Couleur 1</label>
+                        <input type="color" id="color1" value="#FF4B5C">
+                    </div>
+                    <div class="color-picker-group">
+                        abel>Couleur 2</label>
+                        <input type="color" id="color2" value="#1E1E24">
+                    </div>
+                    <div class="color-picker-group">
+                        abel>Couleur 3</label>
+                        <input type="color" id="color3" value="#F9F9F9">
+                    </div>
+                    <button class="btn-reset-colors" id="resetColors">🔄 Auto</button>
+                </div>
+            </div>
+
+            <button class="btn-generate" id="generateBtn">
+                <span id="btnText">✨ Générer l'affiche</span>
+                <span id="btnLoader" class="hidden">⏳ Génération en cours...</span>
+            </button>
+        </div>
+
+        <!-- PRÉVISUALISATION -->
+        <div class="generator-right">
+            <h2>Prévisualisation</h2>
+            <p class="section-subtitle">Ton affiche générée apparaîtra ici</p>
+
+            <div class="poster-container">
+                <div id="posterEmpty" class="poster-empty">
+                    <div class="poster-empty-icon">🖼️</div>
+                    <p>Lance la génération pour voir ton affiche</p>
+                </div>
+
+                <div id="poster" class="poster template-1 hidden">
+                    <div class="poster-header">
+                        <div class="poster-organisateur" id="pOrganisateur"></div>
+                    </div>
+                    <div class="poster-body">
+                        <div class="poster-title" id="pTitle"></div>
+                        <div class="poster-slogan" id="pSlogan"></div>
+                    </div>
+                    <div class="poster-footer">
+                        <div class="poster-meta">
+                            <span class="poster-date" id="pDate"></span>
+                            <span class="poster-lieu" id="pLieu"></span>
+                        </div>
+                        <div class="poster-palette-dots" id="pPalette"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="poster-actions hidden" id="posterActions">
+                <button class="btn-download" id="downloadBtn">⬇️ Télécharger PDF</button>
+                <button class="btn-save" id="saveBtn">💾 Sauvegarder</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTORIQUE -->
+    <section class="history-section" id="history">
+        <div class="history-header">
+            <h2>Historique des affiches</h2>
+            <p class="section-subtitle">Les dernières affiches générées</p>
+        </div>
+        <div class="history-grid" id="historyGrid">
+            <p class="history-empty">Aucune affiche générée pour l'instant.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-brand">🎨 AffichIA</div>
+        <p>Projet tuteuré L3 Informatique / Création Numérique — Université Lyon 2 — 2025-2026</p>
+        <p>Laura Moret & Gregg Henry</p>
+    </footer>
 
     <script src="app.js"></script>
 </body>
