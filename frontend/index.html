@@ -2,9 +2,10 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AffichIA - Générateur d'affiches</title>
+    <title>AffichIA</title>
     >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -12,12 +13,12 @@
         <p class="subtitle">Générateur d'affiches pour événements étudiants</p>
 
         <div class="form-group">
-            abel for="keywords">Mots-clés de l'événement :</label>
+            abel>Mots-clés de l'événement :</label>
             <input type="text" id="keywords" placeholder="Ex: soirée rétro, tournoi gaming...">
         </div>
 
         <div class="form-group">
-            abel for="style">Type d'événement :</label>
+            abel>Type d'événement :</label>
             <select id="style">
                 <option value="soiree">Soirée</option>
                 <option value="conference">Conférence</option>
@@ -26,9 +27,26 @@
             </select>
         </div>
 
+        <div class="form-group">
+            abel>Template :</label>
+            <div class="template-selector">
+                <div class="template-option selected" data-template="1">Style 1</div>
+                <div class="template-option" data-template="2">Style 2</div>
+                <div class="template-option" data-template="3">Style 3</div>
+            </div>
+        </div>
+
         <button id="generateBtn" class="btn">Générer une affiche</button>
 
-        <div id="result" class="result"></div>
+        <!-- Prévisualisation de l'affiche -->
+        <div id="posterPreview" class="poster-preview hidden">
+            <div id="poster" class="poster template-1">
+                <div class="poster-title" id="posterTitle"></div>
+                <div class="poster-slogan" id="posterSlogan"></div>
+                <div class="poster-palette" id="posterPalette"></div>
+            </div>
+            <button id="downloadBtn" class="btn btn-download">⬇️ Télécharger en PDF</button>
+        </div>
     </div>
 
     <script src="app.js"></script>

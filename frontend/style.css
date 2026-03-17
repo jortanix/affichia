@@ -115,3 +115,130 @@ input:focus, select:focus {
     border-radius: 6px;
     border: 2px solid #ddd;
 }
+/* ... ton CSS existant ... */
+
+.template-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.template-option {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.template-option.selected {
+    border-color: #667eea;
+    background: #667eea;
+    color: white;
+}
+
+.poster-preview {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.poster-preview.hidden {
+    display: none;
+}
+
+/* Template 1 - Soirée (sombre/vibrant) */
+.poster.template-1 {
+    width: 400px;
+    height: 560px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #1E1E24, #FF4B5C);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    border-radius: 12px;
+}
+
+/* Template 2 - Conférence (pro/épuré) */
+.poster.template-2 {
+    width: 400px;
+    height: 560px;
+    margin: 0 auto;
+    background: white;
+    border: 8px solid #2C3E50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    border-radius: 0px;
+}
+
+/* Template 3 - Tournoi (dynamique) */
+.poster.template-3 {
+    width: 400px;
+    height: 560px;
+    margin: 0 auto;
+    background: linear-gradient(45deg, #F9F9F9, #FFD700);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    border-radius: 0px 50px 0px 50px;
+}
+
+.poster-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.template-2 .poster-title {
+    color: #2C3E50;
+    text-shadow: none;
+}
+
+.template-3 .poster-title {
+    color: #1E1E24;
+    text-shadow: none;
+}
+
+.poster-slogan {
+    font-size: 1.1rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.85);
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+.template-2 .poster-slogan {
+    color: #555;
+}
+
+.template-3 .poster-slogan {
+    color: #444;
+}
+
+.poster-palette {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.poster-color {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+}
+
+.btn-download {
+    margin-top: 20px;
+    background: #27ae60;
+}
